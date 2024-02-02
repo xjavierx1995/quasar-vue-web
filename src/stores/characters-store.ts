@@ -10,6 +10,9 @@ export const characterStore = defineStore('characters', {
     selectedCharacter: undefined
   }),
   getters: {
+    isFavorite: (state) => {
+      return (character) => !!state.favoritesCharacters.find(e => e.id === character.id);
+    }
   },
   actions: {
     async getCharacters(gender?: string){
@@ -26,6 +29,15 @@ export const characterStore = defineStore('characters', {
         console.log(error);
 
       }
+    },
+    addFavorite(character: ICharacter){
+      this.favoritesCharacters.push(character)
+    },
+    deleteFavorite(character: ICharacter){
+      this.favoritesCharacters = this.favoritesCharacters.filter(e => e.id !== character.id);
+    },
+    getFavorites(){
+      this.characterList = this.favoritesCharacters;
     }
   },
 });

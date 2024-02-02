@@ -24,6 +24,11 @@
                   <q-img :src="character.image">
                     <div class="absolute-bottom text-h6">
                       {{ character.name }}
+                      <q-btn
+                        @click="addOrDeleteFavorite(character, isFavorite(character))"
+                        round
+                        :style="'background: #F2F2F2; color:' + getColor(isFavorite(character))"
+                        icon="star" />
                     </div>
                   </q-img>
 
@@ -41,6 +46,7 @@
 
 <script setup lang="ts">
 import { ITabs } from 'src/interface/Tabs.interface';
+import { ICharacter } from 'src/interface/Character.interface';
 import { onMounted, ref } from 'vue';
 import { characterStore } from '../stores/characters-store';
 import { storeToRefs } from 'pinia';
@@ -53,14 +59,20 @@ const props = withDefaults(defineProps<Props>(), {
   availableTabs: () => [],
 });
 
-const { getCharacters } = characterStore();
+const { getCharacters, addFavorite, isFavorite, deleteFavorite } = characterStore();
 const characterRef = storeToRefs(characterStore());
 const tabSelected = ref<string>(props.availableTabs[0].value);
 
-
-
 function searchCharacters() {
   getCharacters(tabSelected.value);
+}
+
+function addOrDeleteFavorite(character: ICharacter, isFav: boolean){
+  isFav ? deleteFavorite(character) : addFavorite(character);
+}
+
+function getColor(isFav: boolean): string {
+  return isFav ? '#F2994A' : '#828282';
 }
 
 onMounted(() => {
