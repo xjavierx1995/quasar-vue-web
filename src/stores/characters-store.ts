@@ -12,9 +12,15 @@ export const characterStore = defineStore('characters', {
   getters: {
   },
   actions: {
-    async getCharacters(){
+    async getCharacters(gender?: string){
       try {
-        const { data } = await api.get<BaseResponse<ICharacter[]>>('/character');
+        const params = {
+          gender
+        };
+        if (gender === 'all') {
+          params.gender = ''
+        }
+        const { data } = await api.get<BaseResponse<ICharacter[]>>('/character', { params });
         this.characterList = data.results;
       } catch (error) {
         console.log(error);

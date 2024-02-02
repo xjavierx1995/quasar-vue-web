@@ -11,7 +11,7 @@ import { ref } from 'vue';
 const availableTabs = ref<ITabs[]>([
   {
     label: 'All',
-    value: ''
+    value: 'all'
   },
   {
     label: 'Unknown',
