@@ -1,7 +1,6 @@
 <template>
   <div>
-    <q-input outlined v-model="characterRef.selectedFilters.value.name" placeholder="Buscar personaje..."
-      @update:model-value="search">
+    <q-input outlined v-model="filter.name" placeholder="Buscar personaje..." @update:model-value="search">
       <template v-slot:prepend>
         <q-icon name="search" />
       </template>
@@ -9,6 +8,12 @@
         <q-btn round icon="tune" flat @click="openModal = true" />
       </template>
     </q-input>
+
+    <q-card flat class="text-black">
+      <q-card-section>
+        Filtro aplicado: {{ characterRef.getSelectedFilters.value.replace('"', '') }}
+      </q-card-section>
+    </q-card>
   </div>
 
   <q-dialog v-model="openModal" persistent>
@@ -18,9 +23,9 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <q-input dense v-model="characterRef.selectedFilters.value.species" autofocus label="Especie" />
-        <q-input dense v-model="characterRef.selectedFilters.value.type" autofocus label="Tipo" />
-        <q-select v-model="characterRef.selectedFilters.value.status" :options="statusSelect" label="Estado" />
+        <q-input dense v-model="filter.species" autofocus label="Especie" />
+        <q-input dense v-model="filter.type" autofocus label="Tipo" />
+        <q-select v-model="filter.status" :options="statusSelect" label="Estado" />
       </q-card-section>
 
       <q-card-actions align="right" class="text-primary">
@@ -32,15 +37,19 @@
 </template>
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { IFilter } from 'src/interface/Character.interface';
 import { characterStore } from 'src/stores/characters-store';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 const characterRef = storeToRefs(characterStore());
 const { getCharacters } = characterStore();
 const openModal = ref<boolean>(false)
 
 const statusSelect = ref<string[]>(['alive', 'dead', 'unknown']);
 
+const filter = reactive<IFilter>({ ...characterRef.selectedFilters.value });
+
 function search() {
+  characterRef.selectedFilters.value = { ...filter };
   getCharacters(characterRef.selectedFilters.value);
 }
 </script>

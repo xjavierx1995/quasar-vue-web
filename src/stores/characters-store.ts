@@ -10,15 +10,19 @@ export const characterStore = defineStore('characters', {
     selectedCharacter: undefined,
     selectedFilters: {
       name: '',
-      status: 'alive',
+      status: '',
       species: '',
       type: '',
-      gender: 'all'
+      gender: ''
     }
   }),
   getters: {
     isFavorite: (state) => {
       return (character: ICharacter) => !!state.favoritesCharacters.find(e => e.id === character.id);
+    },
+    getSelectedFilters: (state: ICharacterStore) => {
+      const keys = Object.keys(state.selectedFilters).filter((key) => state.selectedFilters[key as keyof IFilter] !== '' && state.selectedFilters[key as keyof IFilter] !== 'all');
+      return keys.map(key => key.charAt(0).toUpperCase() + key.slice(1)).join(', ').replace('"', '');
     }
   },
   actions: {

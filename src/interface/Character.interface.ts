@@ -27,7 +27,7 @@ interface IOrigin {
 
 export interface IFilter {
   name: string;
-  status: 'alive' | 'dead' | 'unknown';
+  status: 'alive' | 'dead' | 'unknown' | '';
   species: string;
   type: string;
   gender: 'female' | 'male' | 'genderless' | 'unknown' | 'all' | '';
