@@ -2,6 +2,7 @@ export interface ICharacterStore {
   characterList: ICharacter[];
   selectedCharacter: ICharacter | undefined;
   favoritesCharacters: ICharacter[];
+  selectedFilters: IFilter;
 }
 
 export interface ICharacter {
@@ -22,4 +23,12 @@ export interface ICharacter {
 interface IOrigin {
   name: string;
   url: string;
+}
+
+export interface IFilter {
+  name: string;
+  status: 'alive' | 'dead' | 'unknown';
+  species: string;
+  type: string;
+  gender: 'female' | 'male' | 'genderless' | 'unknown' | 'all' | '';
 }

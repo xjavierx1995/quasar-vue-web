@@ -1,26 +1,30 @@
 import { defineStore } from 'pinia';
 import { api } from 'src/boot/axios';
 import { BaseResponse } from 'src/interface/BaseResponse.interface';
-import { ICharacter, ICharacterStore } from 'src/interface/Character.interface';
+import { ICharacter, ICharacterStore, IFilter} from 'src/interface/Character.interface';
 
 export const characterStore = defineStore('characters', {
   state: (): ICharacterStore => ({
     characterList: [],
     favoritesCharacters: [],
-    selectedCharacter: undefined
+    selectedCharacter: undefined,
+    selectedFilters: {
+      name: '',
+      status: 'alive',
+      species: '',
+      type: '',
+      gender: 'all'
+    }
   }),
   getters: {
     isFavorite: (state) => {
-      return (character) => !!state.favoritesCharacters.find(e => e.id === character.id);
+      return (character: ICharacter) => !!state.favoritesCharacters.find(e => e.id === character.id);
     }
   },
   actions: {
-    async getCharacters(gender?: string){
+    async getCharacters(params?: IFilter){
       try {
-        const params = {
-          gender
-        };
-        if (gender === 'all') {
+        if (params && params.gender === 'all') {
           params.gender = ''
         }
         const { data } = await api.get<BaseResponse<ICharacter[]>>('/character', { params });
