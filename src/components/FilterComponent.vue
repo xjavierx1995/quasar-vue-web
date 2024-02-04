@@ -1,6 +1,7 @@
 <template>
   <div>
-    <q-input outlined v-model="filter.name" placeholder="Buscar personaje..." @update:model-value="search">
+    <q-input bg-color="#081F32" filled outlined v-model="filter.name" placeholder="Buscar personaje..."
+      @update:model-value="search">
       <template v-slot:prepend>
         <q-icon name="search" />
       </template>

@@ -14,7 +14,8 @@ export const characterStore = defineStore('characters', {
       species: '',
       type: '',
       gender: ''
-    }
+    },
+    showFavorites: false
   }),
   getters: {
     isFavorite: (state) => {
@@ -28,6 +29,7 @@ export const characterStore = defineStore('characters', {
   actions: {
     async getCharacters(params?: IFilter){
       try {
+        this.showFavorites = false;
         if (params && params.gender === 'all') {
           params.gender = ''
         }

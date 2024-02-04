@@ -3,6 +3,7 @@ export interface ICharacterStore {
   selectedCharacter: ICharacter | undefined;
   favoritesCharacters: ICharacter[];
   selectedFilters: IFilter;
+  showFavorites: boolean;
 }
 
 export interface ICharacter {
