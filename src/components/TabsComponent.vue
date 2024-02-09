@@ -8,24 +8,21 @@
       </q-tabs>
 
       <q-separator />
+      <div class="tab-content">
+        <div class="favorites-button">
+          Mostrar favoritos:
+          <q-btn @click="showMyFavorites" round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
+        </div>
 
-      <h6>
-        Mostrar favoritos:
-        <q-btn @click="showMyFavorites" round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
-      </h6>
-
-      <q-tab-panels v-model="tabSelected" animated>
-        <q-tab-panel v-for="tab in availableTabs" :key="tab.value" :name="tab.value">
-          <div class="row">
-            <div class="col-2" v-for="(character, index) in characterRef.characterList.value" :key="index">
-              <CharacterCard :main-character="character"></CharacterCard>
+        <q-tab-panels v-model="tabSelected" animated>
+          <q-tab-panel v-for="tab in availableTabs" :key="tab.value" :name="tab.value">
+            <div class="cards-container">
+              <SquadCard v-for="(character, index) in characterRef.characterList.value" :key="index"
+                :character="character"></SquadCard>
             </div>
-          </div>
-        </q-tab-panel>
-
-        <HelloWorldVue :text="'hola mundo'"></HelloWorldVue>
-
-      </q-tab-panels>
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
     </div>
   </div>
 </template>
@@ -35,8 +32,7 @@ import { ITabs } from 'src/interface/Tabs.interface';
 import { onMounted, ref } from 'vue';
 import { characterStore } from '../stores/characters-store';
 import { storeToRefs } from 'pinia';
-import CharacterCard from './CharacterCard.vue';
-// import { HelloWorldVue } from 'squadmakers-test-library'
+import { SquadCard } from 'squadmakers-vue-library';
 
 interface Props {
   availableTabs: ITabs[];
@@ -68,3 +64,34 @@ onMounted(() => {
   getCharacters();
 })
 </script>
+
+<style scoped>
+.tab-content {
+  margin-inline: 10%;
+
+  @media (max-width: 640px) {
+    margin-inline: 0;
+  }
+
+  .favorites-button {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    margin-bottom: 20px;
+  }
+}
+
+
+
+.q-tab-panel {
+  padding: 0 !important;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+</style>

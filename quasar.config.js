@@ -14,14 +14,15 @@ const { configure } = require('quasar/wrappers');
 
 module.exports = configure(function (/* ctx */) {
   return {
-    eslint: {
+
+    /* eslint: {
       // fix: true,
       // include: [],
       // exclude: [],
       // rawOptions: {},
       warnings: true,
       errors: true
-    },
+    }, */
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -30,7 +31,7 @@ module.exports = configure(function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
-      
+
       'axios',
     ],
 
@@ -60,6 +61,10 @@ module.exports = configure(function (/* ctx */) {
         node: 'node20'
       },
 
+      /* alias: {
+        node_modules: path.join(__dirname, 'node_modules')
+      }, */
+
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
@@ -79,7 +84,7 @@ module.exports = configure(function (/* ctx */) {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
-      
+
       // vitePlugins: [
       //   [ 'package-name', { ..options.. } ]
       // ]
