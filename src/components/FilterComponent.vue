@@ -40,17 +40,17 @@
 import { storeToRefs } from 'pinia';
 import { IFilter } from 'src/interface/Character.interface';
 import { characterStore } from 'src/stores/characters-store';
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 const characterRef = storeToRefs(characterStore());
 const { getCharacters } = characterStore();
 const openModal = ref<boolean>(false)
 
 const statusSelect = ref<string[]>(['alive', 'dead', 'unknown']);
 
-const filter = reactive<IFilter>({ ...characterRef.selectedFilters.value });
+const filter = ref<IFilter>({ ...characterRef.selectedFilters.value });
 
 function search() {
-  characterRef.selectedFilters.value = { ...filter };
-  getCharacters(characterRef.selectedFilters.value);
+  characterRef.selectedFilters.value = { ...filter.value };
+  getCharacters();
 }
 </script>

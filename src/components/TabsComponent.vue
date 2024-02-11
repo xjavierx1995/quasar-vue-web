@@ -18,7 +18,8 @@
           <q-tab-panel v-for="tab in availableTabs" :key="tab.value" :name="tab.value">
             <div class="cards-container">
               <SquadCard v-for="(character, index) in characterRef.characterList.value" :key="index"
-                :character="character"></SquadCard>
+                :character="character">
+              </SquadCard>
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -47,8 +48,8 @@ const characterRef = storeToRefs(characterStore());
 const tabSelected = ref<'female' | 'male' | 'genderless' | 'unknown' | 'all'>('all');
 
 function searchCharacters() {
-  selectedFilters.gender = tabSelected.value;
-  getCharacters(selectedFilters);
+  characterRef.selectedFilters.value.gender = tabSelected.value;
+  getCharacters();
 }
 
 function showMyFavorites() {

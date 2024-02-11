@@ -27,7 +27,8 @@ export const characterStore = defineStore('characters', {
     }
   },
   actions: {
-    async getCharacters(params?: IFilter){
+    async getCharacters(/* params?: IFilter */){
+      const params: IFilter = this.selectedFilters;
       try {
         this.showFavorites = false;
         if (params && params.gender === 'all') {
@@ -35,8 +36,11 @@ export const characterStore = defineStore('characters', {
         }
         const { data } = await api.get<BaseResponse<ICharacter[]>>('/character', { params });
         this.characterList = data.results;
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        if (error.response?.status === 404) {
+          this.router.push('no-data');
+        }
 
       }
     },
@@ -48,6 +52,15 @@ export const characterStore = defineStore('characters', {
     },
     getFavorites(){
       this.characterList = this.favoritesCharacters;
+    },
+    restoreFilters(){
+      this.selectedFilters = {
+        gender: '',
+        name: '',
+        species: '',
+        status: '',
+        type: ''
+      }
     }
   },
 });
