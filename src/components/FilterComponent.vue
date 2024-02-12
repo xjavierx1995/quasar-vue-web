@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <q-input bg-color="#081F32" filled outlined v-model="filter.name" placeholder="Buscar personaje..."
-      @update:model-value="search">
+  <div class="filters">
+    <q-input style="border: 2px solid white;" debounce="500" label-color="ocean" color="ocean" bg-color="ocean" filled
+      v-model="filter.name" label="Buscar personaje..." @update:model-value="search">
       <template v-slot:prepend>
-        <q-icon name="search" />
+        <q-icon style="color: #fff;" name="search" />
       </template>
       <template v-slot:append>
-        <q-btn round icon="tune" flat @click="openModal = true" />
+        <q-btn style="color: #fff;" round icon="tune" flat @click="openModal = true" />
       </template>
     </q-input>
 
@@ -53,17 +53,29 @@ function search() {
 }
 </script>
 <style lang="scss">
-.applied-filters {
-  font-family: Montserrat;
-  font-weight: 400;
-  background: white;
-  border-radius: 6px;
-  padding: 7px 10px;
-  color: #081F32;
+.filters {
+  .q-field__native {
+    color: white !important;
+  }
 
-  span {
-    font-weight: 600;
-    color: #34C759;
+  .applied-filters {
+    font-family: Montserrat;
+    font-weight: 400;
+    background: #F2F2F2;
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: #081F32;
+    margin-top: 10px;
+
+    span {
+      font-weight: 600;
+      color: #34C759;
+    }
+  }
+
+  .search-input {
+    background: #081F32;
+    color: #fff;
   }
 }
 </style>
