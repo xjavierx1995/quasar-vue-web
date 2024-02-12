@@ -37,7 +37,6 @@ export const characterStore = defineStore('characters', {
         const { data } = await api.get<BaseResponse<ICharacter[]>>('/character', { params });
         this.characterList = data.results;
       } catch (error: any) {
-        console.log(error);
         if (error.response?.status === 404) {
           this.router.push('no-data');
         }
@@ -52,6 +51,10 @@ export const characterStore = defineStore('characters', {
     },
     getFavorites(){
       this.characterList = this.favoritesCharacters;
+
+      if (this.characterList.length === 0) {
+        this.router.push('no-data');
+      }
     },
     restoreFilters(){
       this.selectedFilters = {
