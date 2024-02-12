@@ -6,8 +6,8 @@ import { ICharacter, ICharacterStore, IFilter} from 'src/interface/Character.int
 export const characterStore = defineStore('characters', {
   state: (): ICharacterStore => ({
     characterList: [],
+    randomCharacterList: [],
     favoritesCharacters: [],
-    selectedCharacter: undefined,
     selectedFilters: {
       name: '',
       status: '',
@@ -24,10 +24,6 @@ export const characterStore = defineStore('characters', {
     getSelectedFilters: (state: ICharacterStore) => {
       const keys = Object.keys(state.selectedFilters).filter((key) => state.selectedFilters[key as keyof IFilter] !== '' && state.selectedFilters[key as keyof IFilter] !== 'all');
       return keys.map(key => key.charAt(0).toUpperCase() + key.slice(1)).join(', ').replace('"', '');
-    },
-    getRandomCharacters: (state: ICharacterStore) => {
-      const randomArray = state.characterList.sort(() => Math.random() - 0.5);
-      return randomArray.slice(0, 2);
     }
   },
   actions: {
@@ -45,6 +41,20 @@ export const characterStore = defineStore('characters', {
           this.router.push('no-data');
         }
 
+      }
+    },
+    async getRandomCharacters() {
+      try {
+        const min = 1;
+        const max = 183;
+        const first = Math.floor(Math.random() * (max - min + 1)) + min;
+        const second = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        const { data } = await api.get<ICharacter[]>(`/character/${first},${second}`);
+
+        this.randomCharacterList = data;
+      } catch (error: any) {
+        console.log(error);
       }
     },
     addFavorite(character: ICharacter){

@@ -1,6 +1,6 @@
 export interface ICharacterStore {
   characterList: ICharacter[];
-  selectedCharacter: ICharacter | undefined;
+  randomCharacterList: ICharacter[];
   favoritesCharacters: ICharacter[];
   selectedFilters: IFilter;
   showFavorites: boolean;

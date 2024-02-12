@@ -8,15 +8,12 @@
       </q-img>
 
       <q-card-section class="section-title">
-        <!-- <q-btn round > -->
         <q-avatar class="absolute character-avatar" size="150px" style="top: 0; transform: translateY(-50%);">
           <img :src="character.image">
           <q-btn @click="addOrDeleteFavorite(character, isFavorite(character))" flat round
             style="position: absolute; bottom: -17px; background: #F2F2F2;"
             :style="'color:' + getColor(isFavorite(character))" icon="star" />
         </q-avatar>
-        <!-- </q-btn> -->
-
       </q-card-section>
 
       <q-card-section class="q-pt-none section-title">
@@ -57,8 +54,8 @@
         <div class="col text-h6 ellipsis q-mb-sm">Personajes interesantes</div>
 
         <div class="episodes-container">
-          <SquadCard v-for="(character, index) in randomCharacter" :key="index" :character="character"
-            :favorite="isFavorite(character)" @manageFavorite="addOrDeleteFavorite">
+          <SquadCard v-for="(item, index) in characterRef.randomCharacterList.value" :key="index" :character="item"
+            :favorite="isFavorite(item)" @manageFavorite="addOrDeleteFavorite">
           </SquadCard>
         </div>
       </q-card-section>
@@ -76,6 +73,7 @@ import CardInfoVue from './CardInfo.vue';
 import { characterStore } from 'src/stores/characters-store';
 import { SquadCard } from 'squadmakers-vue-library';
 import { watch, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
   isOpen: boolean,
@@ -83,7 +81,7 @@ const props = defineProps<{
 }>();
 
 const { getRandomCharacters, deleteFavorite, addFavorite, isFavorite } = characterStore();
-
+const characterRef = storeToRefs(characterStore());
 const randomCharacter = ref<ICharacter[]>()
 
 function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
@@ -96,7 +94,7 @@ function getColor(isFav: boolean): string {
 
 watch(() => props.isOpen, (isOpen) => {
   if (isOpen) {
-    randomCharacter.value = getRandomCharacters;
+    getRandomCharacters()
   }
 }
 )
