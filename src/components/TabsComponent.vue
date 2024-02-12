@@ -60,15 +60,13 @@ onMounted(() => {
 
 }
 
-
-
 .q-tab-panel {
   padding: 0 !important;
 }
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 16px;
 }
 </style>

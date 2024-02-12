@@ -8,24 +8,22 @@
       </q-toolbar>
     </q-header>
     <q-page-container>
-      <div class="q-pa-md">
+      <div>
         <div class="q-gutter-y-md">
-          <q-tabs v-model="tabSelected" dense class="text-grey" active-color="primary" indicator-color="primary"
-            align="justify" narrow-indicator>
+          <q-tabs v-model="tabSelected" dense class="text-black" indicator-color="green" align="justify"
+            style="background: #F2F2F2;">
             <q-tab @click="searchCharacters" to="/" v-for="tab in availableTabs" :key="tab.value" :name="tab.value"
               :label="tab.label" />
           </q-tabs>
         </div>
       </div>
 
-      <q-separator />
+      <q-separator class="q-mb-md" />
 
-      <div class="q-pa-md">
-        <div class="q-gutter-y-md">
-          <div class="favorites-button">
-            Mostrar favoritos:
-            <q-btn @click="showMyFavorites" flat round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
-          </div>
+      <div class="q-pa-md q-mt-md">
+        <div class="favorites-button">
+          Mostrar favoritos:
+          <q-btn @click="showMyFavorites" flat round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
         </div>
       </div>
       <router-view />
@@ -92,7 +90,12 @@ function getColor(): string {
   font-weight: 500;
   line-height: 17px;
   letter-spacing: 0em;
-  margin-bottom: 20px;
+  // margin-bottom: 30px;
+  margin-top: 30px;
   margin-inline: 7.5%;
+}
+
+.q-tab__label {
+  padding: 20px;
 }
 </style>
