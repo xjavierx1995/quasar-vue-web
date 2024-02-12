@@ -10,11 +10,9 @@
       </template>
     </q-input>
 
-    <q-card flat class="text-black">
-      <q-card-section>
-        Filtro aplicado: {{ characterRef.getSelectedFilters.value.replace('"', '') }}
-      </q-card-section>
-    </q-card>
+    <div class="applied-filters">
+      <span>Filtro aplicado:</span> {{ characterRef.getSelectedFilters.value.replace('"', '') }}
+    </div>
   </div>
 
   <q-dialog v-model="openModal" persistent>
@@ -54,3 +52,18 @@ function search() {
   getCharacters();
 }
 </script>
+<style lang="scss">
+.applied-filters {
+  font-family: Montserrat;
+  font-weight: 400;
+  background: white;
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: #081F32;
+
+  span {
+    font-weight: 600;
+    color: #34C759;
+  }
+}
+</style>

@@ -1,7 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
-      <q-toolbar class="custom-toolbar justify-center">
+    <q-header reveal>
+      <q-toolbar class="custom-toolbar">
+        <img src="../assets/title.svg" alt="title">
         <div>
           <filter-component></filter-component>
         </div>
@@ -28,6 +29,10 @@
       </div>
       <router-view />
     </q-page-container>
+    <!-- <q-footer reveal>
+      <q-toolbar class="custom-toolbar-footer">
+      </q-toolbar>
+    </q-footer> -->
   </q-layout>
 </template>
 
@@ -82,6 +87,18 @@ function getColor(): string {
 <style lang="scss">
 .custom-toolbar {
   background: url('../assets/bg.svg');
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.custom-toolbar-footer {
+  background: url('../assets/footer_bg.svg');
+  background-position: bottom;
+  padding: 5%;
 }
 
 .favorites-button {
