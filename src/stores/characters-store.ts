@@ -27,7 +27,7 @@ export const characterStore = defineStore('characters', {
     }
   },
   actions: {
-    async getCharacters(/* params?: IFilter */){
+    async getCharacters(){
       const params: IFilter = this.selectedFilters;
       try {
         this.showFavorites = false;
