@@ -11,6 +11,9 @@
         <!-- <q-btn round > -->
         <q-avatar class="absolute character-avatar" size="150px" style="top: 0; transform: translateY(-50%);">
           <img :src="character.image">
+          <q-btn @click="addOrDeleteFavorite(character, isFavorite(character))" flat round
+            style="position: absolute; bottom: -17px; background: #F2F2F2;"
+            :style="'color:' + getColor(isFavorite(character))" icon="star" />
         </q-avatar>
         <!-- </q-btn> -->
 
@@ -85,6 +88,10 @@ const randomCharacter = ref<ICharacter[]>()
 
 function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
   isFav ? deleteFavorite(character) : addFavorite(character);
+}
+
+function getColor(isFav: boolean): string {
+  return isFav ? '#F2994A' : '#828282';
 }
 
 watch(() => props.isOpen, (isOpen) => {
