@@ -39,12 +39,11 @@ import { storeToRefs } from 'pinia';
 import { IFilter } from 'src/interface/Character.interface';
 import { characterStore } from 'src/stores/characters-store';
 import { ref } from 'vue';
+
 const characterRef = storeToRefs(characterStore());
 const { getCharacters } = characterStore();
-const openModal = ref<boolean>(false)
-
+const openModal = ref<boolean>(false);
 const statusSelect = ref<string[]>(['alive', 'dead', 'unknown']);
-
 const filter = ref<IFilter>({ ...characterRef.selectedFilters.value });
 
 function search() {

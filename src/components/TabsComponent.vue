@@ -15,6 +15,7 @@
       </div>
     </div>
   </div>
+  <ModalProfileVue :isOpen="openModal" @close="openModal = false" :character="selectedCharacter"></ModalProfileVue>
 </template>
 
 <script setup lang="ts">
@@ -24,6 +25,7 @@ import { characterStore } from '../stores/characters-store';
 import { storeToRefs } from 'pinia';
 import { SquadCard } from 'squadmakers-vue-library';
 import { ICharacter } from 'src/interface/Character.interface';
+import ModalProfileVue from './ModalProfile.vue';
 
 interface Props {
   availableTabs: ITabs[];
@@ -35,6 +37,8 @@ withDefaults(defineProps<Props>(), {
 
 const { getCharacters, isFavorite, deleteFavorite, addFavorite } = characterStore();
 const characterRef = storeToRefs(characterStore());
+const openModal = ref<boolean>(false);
+const selectedCharacter = ref<ICharacter>();
 const tabSelected = ref<'female' | 'male' | 'genderless' | 'unknown' | 'all'>('all');
 
 function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
@@ -42,7 +46,8 @@ function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
 }
 
 function showModalProfile(character: ICharacter) {
-  console.log(character);
+  selectedCharacter.value = character;
+  openModal.value = true;
 }
 
 onMounted(() => {

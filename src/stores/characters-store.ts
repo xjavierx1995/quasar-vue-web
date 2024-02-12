@@ -24,6 +24,10 @@ export const characterStore = defineStore('characters', {
     getSelectedFilters: (state: ICharacterStore) => {
       const keys = Object.keys(state.selectedFilters).filter((key) => state.selectedFilters[key as keyof IFilter] !== '' && state.selectedFilters[key as keyof IFilter] !== 'all');
       return keys.map(key => key.charAt(0).toUpperCase() + key.slice(1)).join(', ').replace('"', '');
+    },
+    getRandomCharacters: (state: ICharacterStore) => {
+      const randomArray = state.characterList.sort(() => Math.random() - 0.5);
+      return randomArray.slice(0, 2);
     }
   },
   actions: {
