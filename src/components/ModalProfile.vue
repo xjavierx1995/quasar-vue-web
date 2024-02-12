@@ -72,7 +72,7 @@ import { ICharacter } from 'src/interface/Character.interface';
 import CardInfoVue from './CardInfo.vue';
 import { characterStore } from 'src/stores/characters-store';
 import { SquadCard } from 'squadmakers-vue-library';
-import { watch, ref } from 'vue';
+import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
@@ -82,7 +82,6 @@ const props = defineProps<{
 
 const { getRandomCharacters, deleteFavorite, addFavorite, isFavorite } = characterStore();
 const characterRef = storeToRefs(characterStore());
-const randomCharacter = ref<ICharacter[]>()
 
 function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
   isFav ? deleteFavorite(character) : addFavorite(character);
