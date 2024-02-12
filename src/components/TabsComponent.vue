@@ -11,14 +11,15 @@
       <div class="tab-content">
         <div class="favorites-button">
           Mostrar favoritos:
-          <q-btn @click="showMyFavorites" round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
+          <q-btn @click="showMyFavorites" flat round :style="'background: #F2F2F2; color:' + getColor()" icon="star" />
         </div>
 
         <q-tab-panels v-model="tabSelected" animated>
           <q-tab-panel v-for="tab in availableTabs" :key="tab.value" :name="tab.value">
             <div class="cards-container">
               <SquadCard v-for="(character, index) in characterRef.characterList.value" :key="index"
-                :character="character">
+                :character="character" :favorite="isFavorite(character)" @manageFavorite="addOrDeleteFavorite"
+                @showProfile="showModalProfile">
               </SquadCard>
             </div>
           </q-tab-panel>
@@ -34,6 +35,7 @@ import { onMounted, ref } from 'vue';
 import { characterStore } from '../stores/characters-store';
 import { storeToRefs } from 'pinia';
 import { SquadCard } from 'squadmakers-vue-library';
+import { ICharacter } from 'src/interface/Character.interface';
 
 interface Props {
   availableTabs: ITabs[];
@@ -43,7 +45,7 @@ withDefaults(defineProps<Props>(), {
   availableTabs: () => [],
 });
 
-const { getCharacters, selectedFilters, showFavorites, getFavorites } = characterStore();
+const { getCharacters, getFavorites, isFavorite, deleteFavorite, addFavorite } = characterStore();
 const characterRef = storeToRefs(characterStore());
 const tabSelected = ref<'female' | 'male' | 'genderless' | 'unknown' | 'all'>('all');
 
@@ -59,6 +61,14 @@ function showMyFavorites() {
 
 function getColor(): string {
   return characterRef.showFavorites.value ? '#F2994A' : '#828282';
+}
+
+function addOrDeleteFavorite(character: ICharacter, isFav: boolean) {
+  isFav ? deleteFavorite(character) : addFavorite(character);
+}
+
+function showModalProfile(character: ICharacter) {
+  console.log(character);
 }
 
 onMounted(() => {

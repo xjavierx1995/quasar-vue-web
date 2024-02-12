@@ -1,17 +1,16 @@
 <template>
-  <div class="bg-blue text-white text-center q-pa-md flex flex-center">
+  <div class="text-black text-center q-pa-md flex flex-center">
     <div>
-      <div style="font-size: 30vh">
-        404
+      <div style="font-size: 4vh; color: #353535">
+        Uh-oh!
       </div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
+      <div style="font-size: 2vh; color: #5E5E5E;">
+        ¡Pareces perdido en tu viaje!
       </div>
 
-      <q-btn class="q-mt-xl" color="white" text-color="blue" unelevated to="/" label="Go Home" no-caps />
-      <q-btn class="q-mt-xl" color="white" text-color="blue" unelevated to="/" @click="restore" label="Restaurar filtros"
-        no-caps />
+      <q-btn class="q-mt-md" unelevated rounded to="/" @click="restore" label="Eliminar filtros" no-caps
+        style="background: #11555F; color: white" />
     </div>
   </div>
 </template>

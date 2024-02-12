@@ -15,13 +15,7 @@
 
 <script setup lang="ts">
 import FilterComponent from 'src/components/FilterComponent.vue';
-import { ref } from 'vue';
 
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
 </script>
 <style lang="scss">
 .custom-toolbar {
