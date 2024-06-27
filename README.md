@@ -3,7 +3,7 @@
 Este proyecto fue realizado con Quasar framework, vue 3, pinia
 
 ## Demo
-https://65ca2326796107ee004c7256--squadsmaker-test.netlify.app/#/
+[https://65ca2326796107ee004c7256--squadsmaker-test.netlify.app/#/](https://squadsmaker-test.netlify.app/#/)
 
 
 ## Install the dependencies
